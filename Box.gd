@@ -13,6 +13,7 @@ var box_positions = []
 var current_level = 1
 var current_level_instance
 var level_finished = false
+var is_game_over = false
 
 func _ready():
 	Events.connect('register_box', self, '_on_register_box')
@@ -20,10 +21,7 @@ func _ready():
 	Events.connect('show_grid', self, '_on_show_grid')
 	Events.connect('hide_grid', self, '_on_hide_grid')
 	Events.connect('moving_box_stopped', self, '_on_moving_box_stopped')
-	Events.connect('finished_level', self, '_on_level_finished')
 
-func _on_level_finished():
-	level_finished = true
 
 func load_level(level_nr):
 	if is_instance_valid(current_level_instance):
@@ -43,6 +41,7 @@ func load_level(level_nr):
 		if child.has_method('stand'):
 			moving_boxes_count += 1
 	level_finished = false
+	is_game_over = false
 
 
 func reload_current_level():
@@ -95,15 +94,15 @@ func _on_AnimationPlayer_animation_finished(anim_name:String):
 
 
 func _on_moving_box_stopped():
-	if level_finished:
+	if level_finished or is_game_over:
 		return
 
 	moving_boxes_stopped += 1
 	if moving_boxes_stopped >= moving_boxes_count:
-		emit_signal('start_timer')
-
 		if not is_instance_valid(current_level_instance):
 			return
+
+		emit_signal('start_timer')
 
 		for child in current_level_instance.get_children():
 			if child.has_method('make_movable'):
@@ -111,6 +110,7 @@ func _on_moving_box_stopped():
 
 func game_over():
 	reset_level_data()
+	is_game_over = true
 	if not is_instance_valid(current_level_instance):
 		return
 

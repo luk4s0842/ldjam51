@@ -1,7 +1,7 @@
 extends Node2D
 
 const TIMER_DURATION = 10
-const LEVELS_COUNT = 2
+const LEVELS_COUNT = 10
 
 onready var tween = $Tween
 onready var box = $Box
@@ -96,6 +96,7 @@ func _on_finished_level():
 	if rotating:
 		return
 
+	box.level_finished = true
 	can_rotate = false
 
 	if box.current_level >= LEVELS_COUNT:
@@ -119,7 +120,6 @@ func _on_GameWon_play_again():
 
 
 func _on_RestartButton_pressed():
-	can_rotate = true
 	tween.stop_all()
 	reset_rotation()
 	box.reload_current_level()
