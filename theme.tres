@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://forward.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_top = 16.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_top = 16.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.0745098, 0.0745098, 0.0745098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_top = 16.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.270588, 0.270588, 0.270588, 1 )
+
+[resource]
+default_font = ExtResource( 1 )
+Button/styles/disabled = null
+Button/styles/focus = SubResource( 4 )
+Button/styles/hover = SubResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 3 )
